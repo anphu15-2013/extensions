@@ -3,6 +3,14 @@
   const vars = {}, vecs = {};
   let out = '';
 
+  // Icon huy hiệu C++ (tự động kèm vạch ngăn cách giống khối Pen)
+  const cppIcon = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+    <svg xmlns="http://w3.org" viewBox="0 0 40 40">
+      <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="#00599C" stroke="#ffffff" stroke-width="2.5"/>
+      <text x="20" y="25" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold" font-size="14" text-anchor="middle">C++</text>
+    </svg>
+  `);
+
   class CppPro {
     getInfo() {
       return {
@@ -11,6 +19,7 @@
         color1: '#1AB394',
         color2: '#15967C',
         color3: '#107A65',
+        blockIconURI: cppIcon, // Gắn icon cho toàn bộ khối lệnh
         blocks: [
           { blockType: Scratch.BlockType.LABEL, text: '1. Input / Output (iostream)' },
           { opcode: 'cout', blockType: Scratch.BlockType.COMMAND, text: 'cout: [V]', arguments: { V: { type: Scratch.ArgumentType.STRING, defaultValue: 'Hello ' } } },
