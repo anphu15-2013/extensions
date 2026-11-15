@@ -36,13 +36,13 @@
             text: 'for ([K] = [S]; [K2] [CMP] [E]; [K3] [STEP_OP] [T])',
             arguments: {
               K: { type: Scratch.ArgumentType.STRING, defaultValue: 'i' },
-              S: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+              S: { type: Scratch.ArgumentType.STRING, defaultValue: '1' },
               K2: { type: Scratch.ArgumentType.STRING, defaultValue: 'i' },
               CMP: { type: Scratch.ArgumentType.STRING, menu: 'cmps', defaultValue: '<=' },
-              E: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+              E: { type: Scratch.ArgumentType.STRING, defaultValue: '10' },
               K3: { type: Scratch.ArgumentType.STRING, defaultValue: 'i' },
               STEP_OP: { type: Scratch.ArgumentType.STRING, menu: 'stepOps', defaultValue: '+=' },
-              T: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+              T: { type: Scratch.ArgumentType.STRING, defaultValue: '1' }
             }
           },
           { opcode: 'whileL', blockType: Scratch.BlockType.CONDITIONAL, isLoop: true, text: 'while ([C])', arguments: { C: { type: Scratch.ArgumentType.BOOLEAN } } },
@@ -86,6 +86,11 @@
         }
       };
     }
+    _num(x) {
+      const s = String(x).trim();
+      if (s !== '' && isNaN(Number(s)) && (s in vars)) return Number(vars[s]) || 0;
+      return Number(s) || 0;
+    }
     cout(a) { out += String(a.V); }
     coutLn(a) { out += String(a.V) + '\n'; }
     cinSet(a) { const r = String(a.VAL); vars[a.K] = (r.trim() !== '' && !isNaN(Number(r))) ? Number(r) : r; }
@@ -97,9 +102,9 @@
     getV(a) { return (a.K in vars) ? vars[a.K] : 0; }
 
     forL(a, u) {
-      const k = String(a.K), step = Number(a.T), end = Number(a.E);
+      const k = String(a.K), step = this._num(a.T), end = this._num(a.E);
       if (u.stackFrame.i === undefined) {
-        u.stackFrame.i = Number(a.S);
+        u.stackFrame.i = this._num(a.S);
       } else {
         const prev = u.stackFrame.i;
         if (a.STEP_OP === '+=') u.stackFrame.i += step;
@@ -133,12 +138,11 @@
       const desc = a.ORD === 'greater<>()';
       this._v(a.N).sort((x, y) => {
         const cmp = (!isNaN(Number(x)) && !isNaN(Number(y))) ? Number(x) - Number(y) : String(x).localeCompare(String(y));
-        return desc ? -cmp : cmp;
-      });
-    }
-
-    vAt(a) { const v = this._v(a.N), i = Math.trunc(Number(a.I)); return (i >= 0 && i < v.length) ? v[i] : ''; }
-    vSize(a) { return this._v(a.N).length; }
+return desc ? -cmp : cmp;
+});
+}
+vAt(a) { const v = this._v(a.N), i = Math.trunc(Number(a.I)); return (i >= 0 && i < v.length) ? v[i] : ''; }
+vSize(a) { return this._v(a.N).length; }
 }
 Scratch.extensions.register(new CppPro());
 })(Scratch);
