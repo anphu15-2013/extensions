@@ -56,7 +56,16 @@
           { opcode: 'vClr', blockType: Scratch.BlockType.COMMAND, text: '[N].clear()', arguments: { N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' } } },
           { opcode: 'vPush', blockType: Scratch.BlockType.COMMAND, text: '[N].push_back([V])', arguments: { N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' }, V: { type: Scratch.ArgumentType.STRING, defaultValue: '10' } } },
           { opcode: 'vSet', blockType: Scratch.BlockType.COMMAND, text: '[N].at([I]) = [V]', arguments: { N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' }, I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }, V: { type: Scratch.ArgumentType.STRING, defaultValue: '99' } } },
-          { opcode: 'vSort', blockType: Scratch.BlockType.COMMAND, text: 'sort([N].begin(), [N].end())', arguments: { N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' } } },
+          {
+            opcode: 'vSort',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'sort([N].begin(), [N2].end(), [ORD])',
+            arguments: {
+              N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' },
+              N2: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' },
+              ORD: { type: Scratch.ArgumentType.STRING, menu: 'sortOrds', defaultValue: 'less<>()' }
+            }
+          },
           { opcode: 'vAt', blockType: Scratch.BlockType.REPORTER, text: '[N].at([I])', arguments: { N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' }, I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 } } },
           { opcode: 'vSize', blockType: Scratch.BlockType.REPORTER, text: '[N].size()', arguments: { N: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' } } }
         ],
@@ -65,6 +74,13 @@
           inc: { acceptReporters: false, items: ['++', '--'] },
           cmps: { acceptReporters: false, items: ['<=', '<', '>=', '>', '==', '!='] },
           stepOps: { acceptReporters: false, items: ['+=', '-=', '*=', '/=', '%='] },
+          sortOrds: {
+            acceptReporters: false,
+            items: [
+              { text: 'less<>() (Tăng dần)', value: 'less<>()' },
+              { text: 'greater<>() (Giảm dần)', value: 'greater<>()' }
+            ]
+          },
           bits: { acceptReporters: false, items: ['^', '&', '|', '<<', '>>'] },
           types: { acceptReporters: false, items: ['int', 'double', 'bool', 'std::string'] }
         }
@@ -112,9 +128,17 @@
     vClr(a) { vecs[a.N] = []; }
     vPush(a) { this._v(a.N).push(a.V); }
     vSet(a) { const i = Math.trunc(Number(a.I)); if (i >= 0) this._v(a.N)[i] = a.V; }
-    vSort(a) { this._v(a.N).sort((x, y) => (!isNaN(Number(x)) && !isNaN(Number(y))) ? Number(x) - Number(y) : String(x).localeCompare(String(y))); }
+
+    vSort(a) {
+      const desc = a.ORD === 'greater<>()';
+      this._v(a.N).sort((x, y) => {
+        const cmp = (!isNaN(Number(x)) && !isNaN(Number(y))) ? Number(x) - Number(y) : String(x).localeCompare(String(y));
+        return desc ? -cmp : cmp;
+      });
+    }
+
     vAt(a) { const v = this._v(a.N), i = Math.trunc(Number(a.I)); return (i >= 0 && i < v.length) ? v[i] : ''; }
     vSize(a) { return this._v(a.N).length; }
-  }
-  Scratch.extensions.register(new CppPro());
+}
+Scratch.extensions.register(new CppPro());
 })(Scratch);
