@@ -1,5 +1,7 @@
 [
   // This file supports comments
+  "cpppackspro",
+  "cpppacksprov2",
   "lab/text",
   "lab/face-sensing",
   "lab/video-sprites",
