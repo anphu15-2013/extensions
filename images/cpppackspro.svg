@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://w3.org" viewBox="0 0 600 300">
+<svg xmlns="http://w3.org" width="600" height="300" viewBox="0 0 600 300">
   <defs>
-    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#15967C"/>
-      <stop offset="100%" stop-color="#0B4F42"/>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1AB394"/>
+      <stop offset="100%" stop-color="#0E6655"/>
     </linearGradient>
   </defs>
-  <rect width="600" height="300" fill="url(#bg2)"/>
-  <circle cx="520" cy="60" r="95" fill="#FFD43B" fill-opacity="0.1"/>
-  <circle cx="80" cy="240" r="100" fill="#00599C" fill-opacity="0.25"/>
-  <polygon points="300,32 385,81 385,179 300,228 215,179 215,81" fill="#00599C" stroke="#FFD43B" stroke-width="7"/>
+  <rect width="600" height="300" fill="url(#bg1)"/>
+  <circle cx="80" cy="60" r="90" fill="#ffffff" fill-opacity="0.06"/>
+  <circle cx="530" cy="250" r="110" fill="#00599C" fill-opacity="0.25"/>
+  <polygon points="300,32 385,81 385,179 300,228 215,179 215,81" fill="#00599C" stroke="#ffffff" stroke-width="7"/>
   <text x="300" y="148" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold" font-size="62" text-anchor="middle">C++</text>
-  <rect x="360" y="36" width="84" height="34" rx="10" fill="#FFD43B"/>
-  <text x="402" y="60" fill="#0B4F42" font-family="Arial, sans-serif" font-weight="bold" font-size="20" text-anchor="middle">+V.2</text>
-  <text x="300" y="272" fill="#FFD43B" font-family="Arial, sans-serif" font-weight="bold" font-size="24" letter-spacing="2" text-anchor="middle">STRING • MATH • ALGO</text>
+  <text x="300" y="272" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold" font-size="26" letter-spacing="3" text-anchor="middle">PACKS PRO</text>
 </svg>
