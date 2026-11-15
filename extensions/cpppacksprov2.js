@@ -1,3 +1,8 @@
+// Name: C++ Packs Pro +V.2
+// ID: cpppacksprov2
+// Description: Extended C++ libraries (<string>, <cmath>, <algorithm>, prime checker).
+// By: anphu15-2013
+// License: MIT
 (function(Scratch) {
   'use strict';
 
