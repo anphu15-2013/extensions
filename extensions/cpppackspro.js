@@ -1,3 +1,8 @@
+// Name: C++ Packs Pro
+// ID: cpppackspro
+// Description: Basic C++ programming blocks (iostream, variables, for/while loops, std::vector).
+// By: anphu15-2013
+// License: MIT
 (function(Scratch) {
   'use strict';
   const vars = {}, vecs = {};
